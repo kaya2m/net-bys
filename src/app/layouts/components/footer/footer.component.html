@@ -1,1 +1,106 @@
-<p>footer works!</p>
+<footer class="app-footer">
+  <div class="footer-container">
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+      <!-- Company Info -->
+      <div class="footer-section company-info">
+        <div class="footer-logo">
+          <i class="pi pi-building logo-icon"></i>
+          <span class="logo-text">NET-BYS</span>
+        </div>
+        <p class="company-description">
+          Modern bina yönetim sistemi ile apartman ve site yönetiminizi
+          kolaylaştırın. Tüm ihtiyaçlarınız için tek platform.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="pi pi-facebook"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <i class="pi pi-twitter"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <i class="pi pi-linkedin"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <i class="pi pi-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h4 class="footer-title">Hızlı Erişim</h4>
+        <ul class="footer-links">
+          <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+          <li><a [routerLink]="['/iletisim-yonetimi/duyurular']">Duyurular</a></li>
+          <li><a [routerLink]="['/finansal-yonetim/aidatlar']">Aidatlar</a></li>
+          <li><a [routerLink]="['/iletisim-yonetimi/talepler']">Talepler</a></li>
+          <li><a [routerLink]="['/raporlar']">Raporlar</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-section">
+        <h4 class="footer-title">Destek</h4>
+        <ul class="footer-links">
+          <li><a [routerLink]="['/yardim']">Yardım Merkezi</a></li>
+          <li><a [routerLink]="['/dokumantasyon']">Dokümantasyon</a></li>
+          <li><a [routerLink]="['/sss']">S.S.S.</a></li>
+          <li><a [routerLink]="['/iletisim']">İletişim</a></li>
+          <li><a [routerLink]="['/geri-bildirim']">Geri Bildirim</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-section">
+        <h4 class="footer-title">İletişim</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="pi pi-phone contact-icon"></i>
+            <span>+90 (212) 555 0123</span>
+          </div>
+          <div class="contact-item">
+            <i class="pi pi-envelope contact-icon"></i>
+             <span>info&#64;net-bys.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="pi pi-map-marker contact-icon"></i>
+            <span>İstanbul, Türkiye</span>
+          </div>
+          <div class="contact-item">
+            <i class="pi pi-clock contact-icon"></i>
+            <span>7/24 Destek</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span class="copyright">
+          &copy; {{ currentYear }} NET-BYS. Tüm hakları saklıdır.
+        </span>
+        <span class="version">v{{ version }}</span>
+      </div>
+
+      <div class="footer-bottom-center">
+        <span class="status-indicator" [class]="systemStatus.class">
+          <i [class]="systemStatus.icon"></i>
+          {{ systemStatus.text }}
+        </span>
+      </div>
+
+      <div class="footer-bottom-right">
+        <div class="footer-links-inline">
+          <a [routerLink]="['/gizlilik-politikasi']">Gizlilik Politikası</a>
+          <a [routerLink]="['/kullanim-sartlari']">Kullanım Şartları</a>
+          <a [routerLink]="['/cerez-politikasi']">Çerez Politikası</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

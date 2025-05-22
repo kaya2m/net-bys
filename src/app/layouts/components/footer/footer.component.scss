@@ -1,0 +1,349 @@
+.app-footer {
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto;
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .footer-section {
+      .footer-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 1rem 0;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 0.5rem;
+
+          a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #667eea;
+            }
+          }
+        }
+      }
+    }
+
+    .company-info {
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+
+        .logo-icon {
+          font-size: 1.5rem;
+          color: #667eea;
+        }
+
+        .logo-text {
+          font-size: 1.25rem;
+          font-weight: 800;
+          color: #1f2937;
+          letter-spacing: -0.025em;
+        }
+      }
+
+      .company-description {
+        color: #6b7280;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 0.75rem;
+
+        .social-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: 50%;
+          background: #e5e7eb;
+          color: #6b7280;
+          text-decoration: none;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+          }
+
+          i {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .contact-info {
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+
+        .contact-icon {
+          font-size: 1rem;
+          color: #667eea;
+          width: 1.25rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .p-divider {
+    margin: 0;
+
+    .p-divider-content {
+      padding: 0;
+    }
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .footer-bottom-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .copyright {
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+
+      .version {
+        background: #e5e7eb;
+        color: #6b7280;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+    }
+
+    .footer-bottom-center {
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &.status-online {
+          color: #10b981;
+        }
+
+        &.status-warning {
+          color: #f59e0b;
+        }
+
+        &.status-offline {
+          color: #ef4444;
+        }
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .footer-bottom-right {
+      .footer-links-inline {
+        display: flex;
+        gap: 1.5rem;
+
+        a {
+          color: #6b7280;
+          text-decoration: none;
+          font-size: 0.875rem;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #667eea;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .app-footer {
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+
+      .company-info {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-footer {
+    .footer-container {
+      padding: 1.5rem 1rem 1rem;
+    }
+
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .footer-bottom-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .footer-bottom-right {
+        .footer-links-inline {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .app-footer {
+    .footer-container {
+      padding: 1rem 0.75rem;
+    }
+
+    .footer-main {
+      gap: 1rem;
+
+      .company-info {
+        .social-links {
+          gap: 0.5rem;
+
+          .social-link {
+            width: 2rem;
+            height: 2rem;
+
+            i {
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark mode support (optional)
+@media (prefers-color-scheme: dark) {
+  .app-footer {
+    background: #1f2937;
+    border-top-color: #374151;
+
+    .footer-main {
+      .footer-section {
+        .footer-title {
+          color: #f9fafb;
+        }
+
+        .footer-links {
+          li a {
+            color: #d1d5db;
+
+            &:hover {
+              color: #667eea;
+            }
+          }
+        }
+      }
+
+      .company-info {
+        .footer-logo .logo-text {
+          color: #f9fafb;
+        }
+
+        .company-description {
+          color: #d1d5db;
+        }
+
+        .social-links .social-link {
+          background: #374151;
+          color: #d1d5db;
+
+          &:hover {
+            background: #667eea;
+            color: white;
+          }
+        }
+      }
+
+      .contact-info .contact-item {
+        color: #d1d5db;
+      }
+    }
+
+    .footer-bottom {
+      .footer-bottom-left {
+        .copyright {
+          color: #d1d5db;
+        }
+
+        .version {
+          background: #374151;
+          color: #d1d5db;
+        }
+      }
+
+      .footer-bottom-right {
+        .footer-links-inline a {
+          color: #d1d5db;
+
+          &:hover {
+            color: #667eea;
+          }
+        }
+      }
+    }
+  }
+}

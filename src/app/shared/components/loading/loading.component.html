@@ -1,1 +1,88 @@
-<p>loading works!</p>
+<div *ngIf="type === 'overlay'" class="loading-overlay" [class.backdrop]="backdrop">
+      <div class="loading-content">
+        <p-progressSpinner
+          [style]="spinnerStyle"
+          strokeWidth="4"
+          animationDuration="1s"
+        ></p-progressSpinner>
+        <p class="loading-text" *ngIf="message">{{ message }}</p>
+      </div>
+    </div>
+
+    <!-- Inline Loading -->
+    <div *ngIf="type === 'inline'" class="loading-inline" [class]="'loading-' + size">
+      <p-progressSpinner
+        [style]="spinnerStyle"
+        strokeWidth="4"
+        animationDuration="1s"
+      ></p-progressSpinner>
+      <span class="loading-text" *ngIf="message">{{ message }}</span>
+    </div>
+
+    <!-- Spinner Loading -->
+    <div *ngIf="type === 'spinner'" class="loading-spinner" [class]="'loading-' + size">
+      <div class="spinner-container">
+        <div class="custom-spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring"></div>
+        </div>
+        <p class="loading-text" *ngIf="message">{{ message }}</p>
+      </div>
+    </div>
+
+    <!-- Skeleton Loading -->
+    <div *ngIf="type === 'skeleton'" class="loading-skeleton">
+      <!-- Card Skeleton -->
+      <div *ngIf="skeletonType === 'card'" class="skeleton-card">
+        <p-skeleton width="100%" height="200px" borderRadius="8px"></p-skeleton>
+        <div class="skeleton-content">
+          <p-skeleton width="60%" height="24px" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="80%" height="16px" styleClass="mb-1"></p-skeleton>
+          <p-skeleton width="70%" height="16px"></p-skeleton>
+        </div>
+      </div>
+
+      <!-- List Skeleton -->
+      <div *ngIf="skeletonType === 'list'" class="skeleton-list">
+        <div *ngFor="let item of skeletonItems" class="skeleton-list-item">
+          <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+          <div class="skeleton-list-content">
+            <p-skeleton width="80%" height="16px" styleClass="mb-1"></p-skeleton>
+            <p-skeleton width="60%" height="14px"></p-skeleton>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Skeleton -->
+      <div *ngIf="skeletonType === 'table'" class="skeleton-table">
+        <!-- Header -->
+        <div class="skeleton-table-header">
+          <p-skeleton *ngFor="let col of skeletonColumns"
+                      width="100%" height="40px"
+                      styleClass="mr-2 skeleton-table-header-cell">
+          </p-skeleton>
+        </div>
+        <!-- Rows -->
+        <div *ngFor="let row of skeletonRows" class="skeleton-table-row">
+          <p-skeleton *ngFor="let col of skeletonColumns"
+                      width="100%" height="32px"
+                      styleClass="mr-2 skeleton-table-cell">
+          </p-skeleton>
+        </div>
+      </div>
+
+      <!-- Text Skeleton -->
+      <div *ngIf="skeletonType === 'text'" class="skeleton-text">
+        <p-skeleton width="100%" height="16px" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="90%" height="16px" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="80%" height="16px" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="70%" height="16px"></p-skeleton>
+      </div>
+
+      <!-- Custom Skeleton -->
+      <div *ngIf="skeletonType === 'custom'" class="skeleton-custom">
+        <ng-content></ng-content>
+      </div>
+    </div>

@@ -1,1 +1,122 @@
-<p>sidebar works!</p>
+<aside class="app-sidebar" [class.collapsed]="isCollapsed" [class.mobile-open]="isMobileOpen">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <a [routerLink]="['/dashboard']" class="logo-link">
+            <i class="pi pi-building logo-icon"></i>
+            <span class="logo-text" *ngIf="!isCollapsed">NET-BYS</span>
+          </a>
+        </div>
+
+        <!-- Collapse Toggle -->
+        <p-button
+          [icon]="isCollapsed ? 'pi pi-angle-right' : 'pi pi-angle-left'"
+          styleClass="p-button-text p-button-plain collapse-btn"
+          (onClick)="toggleCollapse()"
+          pTooltip="Menüyü Daralt/Genişlet"
+          tooltipPosition="right"
+          *ngIf="!isMobile"
+        ></p-button>
+
+        <!-- Mobile Close -->
+        <p-button
+          icon="pi pi-times"
+          styleClass="p-button-text p-button-plain mobile-close-btn"
+          (onClick)="closeMobile()"
+          *ngIf="isMobile"
+        ></p-button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li *ngFor="let item of menuItems" class="nav-item">
+            <!-- Menu Item with Children -->
+            <div *ngIf="item.children && item.children.length > 0; else singleItem">
+              <button
+                class="nav-link parent-link"
+                [class.active]="item.isActive"
+                [class.expanded]="item.isExpanded"
+                (click)="toggleSubmenu(item)"
+                [pTooltip]="isCollapsed ? item.label : ''"
+                tooltipPosition="right"
+              >
+                <i [class]="item.icon" class="nav-icon"></i>
+                <span class="nav-label" *ngIf="!isCollapsed">{{ item.label }}</span>
+                <span class="nav-badge" *ngIf="item.badge && !isCollapsed" [class]="item.badgeClass">
+                  {{ item.badge }}
+                </span>
+                <i class="pi pi-chevron-down submenu-arrow" *ngIf="!isCollapsed"></i>
+              </button>
+
+              <!-- Submenu -->
+              <ul class="submenu" [class.expanded]="item.isExpanded" *ngIf="!isCollapsed">
+                <li *ngFor="let child of item.children" class="submenu-item">
+                  <a
+                    [routerLink]="child.route"
+                    routerLinkActive="active"
+                    class="submenu-link"
+                    (click)="onMenuClick(child)"
+                  >
+                    <i [class]="child.icon" class="submenu-icon"></i>
+                    <span class="submenu-label">{{ child.label }}</span>
+                    <span class="submenu-badge" *ngIf="child.badge" [class]="child.badgeClass">
+                      {{ child.badge }}
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Single Menu Item -->
+            <ng-template #singleItem>
+              <a
+                [routerLink]="item.route"
+                routerLinkActive="active"
+                class="nav-link"
+                (click)="onMenuClick(item)"
+                [pTooltip]="isCollapsed ? item.label : ''"
+                tooltipPosition="right"
+              >
+                <i [class]="item.icon" class="nav-icon"></i>
+                <span class="nav-label" *ngIf="!isCollapsed">{{ item.label }}</span>
+                <span class="nav-badge" *ngIf="item.badge && !isCollapsed" [class]="item.badgeClass">
+                  {{ item.badge }}
+                </span>
+              </a>
+            </ng-template>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer" *ngIf="!isCollapsed">
+        <div class="user-info">
+          <div class="user-avatar">
+            <i class="pi pi-user"></i>
+          </div>
+          <div class="user-details">
+            <span class="user-name">{{ currentUser?.fullName }}</span>
+            <span class="user-role">{{ currentUser?.rolAdi }}</span>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <p-button
+            icon="pi pi-cog"
+            styleClass="p-button-text p-button-sm"
+            pTooltip="Ayarlar"
+            (onClick)="goToSettings()"
+          ></p-button>
+          <p-button
+            icon="pi pi-sign-out"
+            styleClass="p-button-text p-button-sm"
+            pTooltip="Çıkış"
+            (onClick)="logout()"
+          ></p-button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" *ngIf="isMobileOpen" (click)="closeMobile()"></div>

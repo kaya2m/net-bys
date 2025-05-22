@@ -1,1 +1,43 @@
-<p>main-layout works!</p>
+<div class="layout-wrapper" [class.sidebar-collapsed]="isSidebarCollapsed" [class.mobile-sidebar-open]="isMobileSidebarOpen">
+      <!-- Sidebar -->
+      <app-sidebar
+        [isCollapsed]="isSidebarCollapsed"
+        [isMobileOpen]="isMobileSidebarOpen"
+        (collapsedChange)="onSidebarCollapsedChange($event)"
+        (mobileOpenChange)="onMobileSidebarOpenChange($event)"
+      ></app-sidebar>
+
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <!-- Header -->
+        <app-header></app-header>
+
+        <!-- Page Content -->
+        <main class="page-content">
+          <div class="content-wrapper">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <app-footer></app-footer>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" *ngIf="isLoading">
+        <div class="loading-spinner">
+          <i class="pi pi-spin pi-spinner"></i>
+          <span>Yükleniyor...</span>
+        </div>
+      </div>
+
+      <!-- Scroll to Top Button -->
+      <button
+        class="scroll-to-top"
+        [class.visible]="showScrollTop"
+        (click)="scrollToTop()"
+        title="Yukarı Çık"
+      >
+        <i class="pi pi-chevron-up"></i>
+      </button>
+    </div>

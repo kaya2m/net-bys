@@ -1,1 +1,101 @@
-<p>error-message works!</p>
+ <div *ngIf="display === 'message' && message" class="error-message-wrapper">
+      <p-message
+        [severity]="type"
+        [text]="message"
+        [closable]="closable"
+        (onClose)="onClose()"
+        [styleClass]="messageClass"
+      >
+        <ng-container *ngIf="customIcon">
+          <i [class]="customIcon" class="custom-message-icon"></i>
+        </ng-container>
+      </p-message>
+    </div>
+
+    <!-- Multiple Messages -->
+    <div *ngIf="display === 'message' && messages && messages.length > 0" class="error-messages-wrapper">
+      <p-messages
+        [value]="formattedMessages"
+        [closable]="closable"
+        (onClose)="onClose()"
+        [styleClass]="messageClass"
+      ></p-messages>
+    </div>
+
+    <!-- Inline Error -->
+    <div *ngIf="display === 'inline'" class="inline-error" [class]="'inline-' + type">
+      <div class="inline-error-content">
+        <i [class]="getIcon()" class="inline-error-icon"></i>
+        <div class="inline-error-text">
+          <strong *ngIf="title" class="inline-error-title">{{ title }}</strong>
+          <p class="inline-error-message">{{ message }}</p>
+          <ul *ngIf="messages && messages.length > 0" class="inline-error-list">
+            <li *ngFor="let msg of messages">{{ msg }}</li>
+          </ul>
+        </div>
+        <button
+          *ngIf="closable"
+          class="inline-error-close"
+          (click)="onClose()"
+          aria-label="Kapat"
+        >
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Banner Error -->
+    <div *ngIf="display === 'banner'" class="banner-error" [class]="'banner-' + type">
+      <div class="banner-error-container">
+        <div class="banner-error-content">
+          <i [class]="getIcon()" class="banner-error-icon"></i>
+          <div class="banner-error-text">
+            <strong *ngIf="title" class="banner-error-title">{{ title }}</strong>
+            <span class="banner-error-message">{{ message }}</span>
+          </div>
+        </div>
+        <div class="banner-error-actions">
+          <p-button
+            *ngIf="retryable"
+            label="Tekrar Dene"
+            icon="pi pi-refresh"
+            styleClass="p-button-sm p-button-outlined"
+            (onClick)="onRetry()"
+          ></p-button>
+          <button
+            *ngIf="closable"
+            class="banner-error-close"
+            (click)="onClose()"
+            aria-label="Kapat"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State Error -->
+    <div *ngIf="display === 'empty'" class="empty-error">
+      <div class="empty-error-content">
+        <div class="empty-error-icon-wrapper">
+          <i [class]="getIcon() || 'pi pi-exclamation-triangle'" class="empty-error-icon"></i>
+        </div>
+        <h3 *ngIf="title" class="empty-error-title">{{ title }}</h3>
+        <p class="empty-error-message">{{ message }}</p>
+        <div class="empty-error-actions" *ngIf="retryable || actionLabel">
+          <p-button
+            *ngIf="retryable"
+            label="Tekrar Dene"
+            icon="pi pi-refresh"
+            (onClick)="onRetry()"
+          ></p-button>
+          <p-button
+            *ngIf="actionLabel"
+            [label]="actionLabel"
+            [icon]="actionIcon"
+            styleClass="p-button-outlined"
+            (onClick)="onAction()"
+          ></p-button>
+        </div>
+      </div>
+    </div>

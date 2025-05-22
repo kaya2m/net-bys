@@ -1,1 +1,188 @@
-<p>header works!</p>
+  <header class="app-header">
+      <div class="header-container">
+        <div class="header-left">
+          <!-- Mobile Menu Toggle -->
+          <p-button
+            icon="pi pi-bars"
+            styleClass="p-button-text p-button-plain header-menu-toggle"
+            (onClick)="toggleSidebar()"
+            [style]="{ display: 'block' }"
+            class="lg:hidden"
+          ></p-button>
+
+          <!-- Logo -->
+          <div class="header-logo">
+            <a [routerLink]="['/dashboard']" class="logo-link">
+                <i class="pi pi-building logo-icon"></i>
+                <span class="logo-text">NET-BYS</span>
+              </a>
+          </div>
+
+          <!-- Breadcrumb/Title -->
+          <div class="header-title">
+            <h1>{{ pageTitle }}</h1>
+            <span class="breadcrumb" *ngIf="breadcrumb">{{ breadcrumb }}</span>
+          </div>
+        </div>
+
+        <!-- Center Section: Search -->
+        <div class="header-center">
+          <div class="search-container">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                placeholder="Ara..."
+                [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()"
+                class="search-input"
+              />
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Section: Actions & User -->
+        <div class="header-right">
+          <!-- Notifications -->
+          <p-button
+            icon="pi pi-bell"
+            styleClass="p-button-text p-button-plain header-action-btn"
+            (onClick)="toggleNotifications($event)"
+            pBadge
+            [value]="notificationCount > 0 ? notificationCount.toString() : ''"
+            badgeClass="p-badge-danger"
+          ></p-button>
+
+          <!-- Quick Actions -->
+          <p-button
+            icon="pi pi-plus"
+            styleClass="p-button-text p-button-plain header-action-btn"
+            (onClick)="toggleQuickActions($event)"
+            pTooltip="Hızlı İşlemler"
+            tooltipPosition="bottom"
+          ></p-button>
+
+          <!-- Fullscreen Toggle -->
+          <p-button
+            [icon]="isFullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"
+            styleClass="p-button-text p-button-plain header-action-btn"
+            (onClick)="toggleFullscreen()"
+            pTooltip="Tam Ekran"
+            tooltipPosition="bottom"
+          ></p-button>
+
+          <!-- User Menu -->
+          <div class="user-menu">
+            <div
+              class="user-profile"
+              (click)="toggleUserMenu($event)"
+            >
+              <p-avatar
+                [image]="currentUser?.avatar"
+                [label]="getUserInitials()"
+                shape="circle"
+                size="normal"
+                styleClass="user-avatar"
+              ></p-avatar>
+              <div class="user-info">
+                <span class="user-name">{{ currentUser?.fullName }}</span>
+                <span class="user-role">{{ currentUser?.rolAdi }}</span>
+              </div>
+              <i class="pi pi-chevron-down user-dropdown-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Panel -->
+      <p-overlayPanel
+        #notificationsPanel
+        styleClass="notifications-panel"
+        [showCloseIcon]="true"
+      >
+        <div class="notifications-header">
+          <h3>Bildirimler</h3>
+          <p-button
+            label="Tümünü Oku"
+            styleClass="p-button-link p-button-sm"
+            (onClick)="markAllAsRead()"
+          ></p-button>
+        </div>
+        <div class="notifications-list">
+          <div
+            *ngFor="let notification of notifications"
+            class="notification-item"
+            [class.unread]="!notification.isRead"
+          >
+            <div class="notification-icon">
+              <i [class]="notification.icon" [style.color]="notification.color"></i>
+            </div>
+            <div class="notification-content">
+              <p class="notification-title">{{ notification.title }}</p>
+              <p class="notification-message">{{ notification.message }}</p>
+              <span class="notification-time">{{ notification.time }}</span>
+            </div>
+          </div>
+          <div *ngIf="notifications.length === 0" class="no-notifications">
+            <i class="pi pi-bell-slash"></i>
+            <p>Yeni bildirim yok</p>
+          </div>
+        </div>
+        <div class="notifications-footer">
+          <a [routerLink]="['/bildirimler']" class="view-all-link">
+            Tüm Bildirimleri Gör
+          </a>
+        </div>
+      </p-overlayPanel>
+
+      <!-- Quick Actions Panel -->
+      <p-overlayPanel
+        #quickActionsPanel
+        styleClass="quick-actions-panel"
+      >
+        <div class="quick-actions-grid">
+          <button
+            *ngFor="let action of quickActions"
+            class="quick-action-item"
+            (click)="executeQuickAction(action)"
+          >
+            <i [class]="action.icon"></i>
+            <span>{{ action.label }}</span>
+          </button>
+        </div>
+      </p-overlayPanel>
+
+      <!-- User Menu Panel -->
+      <p-overlayPanel
+        #userMenuPanel
+        styleClass="user-menu-panel"
+      >
+        <div class="user-menu-header">
+          <p-avatar
+            [image]="currentUser?.avatar"
+            [label]="getUserInitials()"
+            shape="circle"
+            size="large"
+          ></p-avatar>
+          <div class="user-menu-info">
+            <h4>{{ currentUser?.fullName }}</h4>
+            <p>{{ currentUser?.email }}</p>
+            <span class="user-role-badge">{{ currentUser?.rolAdi }}</span>
+          </div>
+        </div>
+
+        <div class="user-menu-items">
+          <p-menu [model]="userMenuItems" [popup]="false"></p-menu>
+        </div>
+
+        <div class="user-menu-footer">
+          <p-button
+            label="Çıkış Yap"
+            icon="pi pi-sign-out"
+            styleClass="p-button-danger p-button-sm w-full"
+            (onClick)="logout()"
+          ></p-button>
+        </div>
+      </p-overlayPanel>
+    </header>

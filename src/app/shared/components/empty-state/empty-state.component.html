@@ -1,1 +1,69 @@
-<p>empty-state works!</p>
+<div class="empty-state" [class]="'empty-state-' + type">
+      <div class="empty-state-content">
+        <!-- Icon -->
+        <div class="empty-state-icon-wrapper">
+          <i [class]="icon || getDefaultIcon()" class="empty-state-icon"></i>
+        </div>
+
+        <!-- Title -->
+        <h3 class="empty-state-title">
+          {{ title || getDefaultTitle() }}
+        </h3>
+
+        <!-- Description -->
+        <p class="empty-state-description" *ngIf="description || getDefaultDescription()">
+          {{ description || getDefaultDescription() }}
+        </p>
+
+        <!-- Custom Content -->
+        <div class="empty-state-custom-content" *ngIf="hasCustomContent">
+          <ng-content></ng-content>
+        </div>
+
+        <!-- Actions -->
+        <div class="empty-state-actions" *ngIf="showActions">
+          <!-- Primary Action -->
+          <p-button
+            *ngIf="primaryAction"
+            [label]="primaryAction.label"
+            [icon]="primaryAction.icon"
+            [styleClass]="primaryAction.styleClass || 'p-button-primary'"
+            (onClick)="onPrimaryAction()"
+            [loading]="primaryAction.loading"
+          ></p-button>
+
+          <!-- Secondary Action -->
+          <p-button
+            *ngIf="secondaryAction"
+            [label]="secondaryAction.label"
+            [icon]="secondaryAction.icon"
+            [styleClass]="secondaryAction.styleClass || 'p-button-outlined'"
+            (onClick)="onSecondaryAction()"
+            [loading]="secondaryAction.loading"
+          ></p-button>
+
+          <!-- Refresh Action -->
+          <p-button
+            *ngIf="showRefresh"
+            label="Yenile"
+            icon="pi pi-refresh"
+            styleClass="p-button-outlined"
+            (onClick)="onRefresh()"
+            [loading]="refreshLoading"
+          ></p-button>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="empty-state-footer" *ngIf="footerLinks && footerLinks.length > 0">
+          <a
+            *ngFor="let link of footerLinks"
+            [href]="link.url"
+            [routerLink]="link.route"
+            class="empty-state-link"
+            [target]="link.external ? '_blank' : '_self'"
+          >
+            {{ link.label }}
+          </a>
+        </div>
+      </div>
+    </div>

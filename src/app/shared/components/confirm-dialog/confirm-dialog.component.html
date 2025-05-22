@@ -1,1 +1,55 @@
-<p>confirm-dialog works!</p>
+    <p-dialog
+      [visible]="visible"
+      [modal]="true"
+      [closable]="closable"
+      [draggable]="false"
+      [resizable]="false"
+      styleClass="confirm-dialog"
+      [style]="{ width: width, maxWidth: '90vw' }"
+      (onHide)="onCancel()"
+    >
+      <ng-template pTemplate="header">
+        <div class="dialog-header">
+          <h3 class="dialog-title">{{ data.title || getDefaultTitle() }}</h3>
+        </div>
+      </ng-template>
+
+      <div class="dialog-content">
+        <div class="dialog-icon-wrapper" *ngIf="showIcon">
+          <i
+            [class]="data.icon || getDefaultIcon()"
+            class="dialog-icon"
+            [style.color]="data.iconColor || getDefaultIconColor()"
+          ></i>
+        </div>
+
+        <div class="dialog-message">
+          <p [innerHTML]="data.message"></p>
+
+          <!-- Custom content slot -->
+          <div class="dialog-custom-content" *ngIf="hasCustomContent">
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="dialog-footer">
+          <p-button
+            *ngIf="data.showCancel !== false"
+            [label]="data.cancelText || 'İptal'"
+            icon="pi pi-times"
+            [styleClass]="data.cancelButtonClass || 'p-button-text p-button-secondary'"
+            (onClick)="onCancel()"
+          ></p-button>
+
+          <p-button
+            [label]="data.confirmText || getDefaultConfirmText()"
+            [icon]="getConfirmIcon()"
+            [styleClass]="data.confirmButtonClass || getDefaultConfirmButtonClass()"
+            (onClick)="onConfirm()"
+            [loading]="loading"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-dialog>
